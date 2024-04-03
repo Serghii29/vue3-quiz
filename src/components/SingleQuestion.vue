@@ -1,32 +1,31 @@
+<script setup>
+  import '../assets/question.css';
+
+  import { defineProps, defineComponent } from 'vue';
+
+  const props = defineProps({
+    question: {
+      type: Object,
+    }
+  });
+
+  defineComponent({
+    name: 'SingleQuestion',
+  })
+
+</script>
+
 <template>
   <section class="quiz">
-    <h1 class="quiz__header">Heading</h1>
+    <h1 class="quiz__header">{{ question.title }}</h1>
 
-    <p class="quiz__description">Choose all that apply</p>
+    <p class="quiz__description">{{ question.description }}</p>
 
     <div class="quiz__question-wrapper">
-      <button class="question">
-        <p class="question__icon">🫣</p>
-        <p class="question__text">Text 3</p>
-      </button>
-
-      <button class="question">
-        <p class="question__icon">🫣</p>
-        <p class="question__text">Text 3</p>
-      </button>
-
-      <button class="question">
-        <p class="question__icon">🫣</p>
-        <p class="question__text">Text 3</p>
+      <button class="question" v-for="answer in question.answers" :key="answer.text">
+        <p class="question__icon">{{ answer.smile }}</p>
+        <p class="question__text">{{ answer.text }}</p>
       </button>
     </div>
   </section>
 </template>
-
-<script>
-  import '../assets/question.css';
-
-  export default {
-    name: 'SingleQuestion'
-  }
-</script>

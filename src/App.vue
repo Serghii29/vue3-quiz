@@ -2,6 +2,7 @@
   import Header from './components/Header.vue';
   import SingleQuestion from './components/SingleQuestion.vue';
   import MultipleQuestion from './components/MultipleQuestion.vue';
+  import quiz from './data/quiz';
 </script>
 
 <template>
@@ -10,10 +11,9 @@
 
     <div class="progress-bar"></div>
 
-    <main class="main">
-      <SingleQuestion />
-
-      <MultipleQuestion />
+    <main class="main" v-for="question in quiz" :key="question.title">
+      <SingleQuestion v-if="question.type === 'single'" :question="question" />
+      <MultipleQuestion v-else-if="question.type === 'multiple'" :question="question" />
     </main>
   </div>
 </template>

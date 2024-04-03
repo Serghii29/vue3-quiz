@@ -1,10 +1,10 @@
 <template>
   <section class="quiz">
-    <h1 class="quiz__header">Heading</h1>
+    <h1 class="quiz__header">{{ question.title }}</h1>
 
-    <p class="quiz__description">Choose all that apply</p>
+    <p class="quiz__description">{{ question.description }}</p>
 
-    <div class="quiz__question-wrapper">
+    <div class="quiz__question-wrapper" v-for="answer in question.answers" :key="answer.text">
       <label class="question">
         <input
           type="checkbox"
@@ -15,9 +15,9 @@
 
         <span class="question__custom-checbox"> </span>
 
-        <p class="question__icon">🫣</p>
+        <p class="question__icon">{{ answer.smile }}</p>
 
-        <p class="question__text">Text 3</p>
+        <p class="question__text">{{ answer.text }}</p>
       </label>
     </div>
 
@@ -25,10 +25,17 @@
   </section>
 </template>
 
-<script>
+<script setup>
   import '../assets/question.css';
+  import { defineProps, defineComponent } from 'vue';
 
-  export default {
-    name: 'MultipleQuestion'
-  }
+  const props = defineProps({
+    question: {
+      type: Object,
+    }
+  });
+
+  defineComponent({
+    name: 'MultipleQuestion',
+  })
 </script>
