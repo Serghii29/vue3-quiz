@@ -1,3 +1,39 @@
+<script setup>
+  import { defineProps, defineComponent, defineEmits, ref } from 'vue';
+  import '../assets/question.css';
+
+  const props = defineProps({
+    question: {
+      type: Object,
+    }
+  });
+
+  defineComponent({
+    name: 'MultipleQuestion',
+  });
+
+  const emit = defineEmits(['next-question']);
+
+  const selectedAnswers = ref([]);
+
+  const toggleAnswer = (answer) => {
+    const index = selectedAnswers.value.indexOf(answer);
+    if (index !== -1) {
+      selectedAnswers.value.splice(index, 1);
+    } else {
+      selectedAnswers.value.push(answer);
+    }
+    console.log(selectedAnswers);
+  };
+
+  const handleNextQuestion = () => {
+    if (selectedAnswers.value.length > 0) {
+      emit('next-question');
+      selectedAnswers.value = [];
+    }
+  };
+</script>
+
 <template>
   <section class="quiz">
     <h1 class="quiz__header">{{ question.title }}</h1>
@@ -9,8 +45,9 @@
         <input
           type="checkbox"
           name="question"
-          value="Text 3"
+          :value="answer.text"
           class="question__input"
+          @change="toggleAnswer(answer)"
         />
 
         <span class="question__custom-checbox"> </span>
@@ -21,21 +58,13 @@
       </label>
     </div>
 
-    <button type="button" class="button">Continue</button>
+    <button
+      type="button"
+      class="button"
+      :class="{ 'button__disabled': selectedAnswers.length === 0 }"
+      @click="handleNextQuestion"
+    >
+      Continue
+  </button>
   </section>
 </template>
-
-<script setup>
-  import '../assets/question.css';
-  import { defineProps, defineComponent } from 'vue';
-
-  const props = defineProps({
-    question: {
-      type: Object,
-    }
-  });
-
-  defineComponent({
-    name: 'MultipleQuestion',
-  })
-</script>

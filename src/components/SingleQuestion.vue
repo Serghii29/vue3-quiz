@@ -1,7 +1,6 @@
 <script setup>
+  import { defineProps, defineComponent, defineEmits } from 'vue';
   import '../assets/question.css';
-
-  import { defineProps, defineComponent } from 'vue';
 
   const props = defineProps({
     question: {
@@ -11,7 +10,13 @@
 
   defineComponent({
     name: 'SingleQuestion',
-  })
+  });
+
+  const emit = defineEmits(['next-question']);
+
+  const handleNextQuestion = () => {
+    emit('next-question');
+  };
 
 </script>
 
@@ -22,7 +27,13 @@
     <p class="quiz__description">{{ question.description }}</p>
 
     <div class="quiz__question-wrapper">
-      <button class="question" v-for="answer in question.answers" :key="answer.text">
+      <button
+        type="button"
+        class="question"
+        v-for="answer in question.answers"
+        :key="answer.text"
+        @click="handleNextQuestion"
+      >
         <p class="question__icon">{{ answer.smile }}</p>
         <p class="question__text">{{ answer.text }}</p>
       </button>

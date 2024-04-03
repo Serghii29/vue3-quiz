@@ -1,3 +1,11 @@
+<script setup>
+  import { defineComponent } from 'vue'; 
+
+  defineComponent({
+      name: 'Header',
+    });
+</script>
+
 <template>
   <header class="header">
     <div>
@@ -11,12 +19,6 @@
     <p class="header__title">1/26</p>
   </header>
 </template>
-
-<script>
-  export default {
-    name: 'Header'
-  }
-</script>
 
 <style scoped>
 .header {

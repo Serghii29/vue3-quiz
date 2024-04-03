@@ -101,4 +101,11 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.button__disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
 }

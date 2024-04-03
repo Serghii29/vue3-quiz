@@ -1,8 +1,17 @@
 <script setup>
+  import { ref } from 'vue';
   import Header from './components/Header.vue';
   import SingleQuestion from './components/SingleQuestion.vue';
   import MultipleQuestion from './components/MultipleQuestion.vue';
   import quiz from './data/quiz';
+
+  const currentQuestionIndex = ref(0);
+
+  const showNextQuestion = () => {
+    if (currentQuestionIndex.value < quiz.length - 1) {
+      currentQuestionIndex.value++;
+    }
+};
 </script>
 
 <template>
@@ -11,9 +20,18 @@
 
     <div class="progress-bar"></div>
 
-    <main class="main" v-for="question in quiz" :key="question.title">
-      <SingleQuestion v-if="question.type === 'single'" :question="question" />
-      <MultipleQuestion v-else-if="question.type === 'multiple'" :question="question" />
+    <main class="main">
+      <SingleQuestion
+        v-if="quiz[currentQuestionIndex].type === 'single'"
+        :question="quiz[currentQuestionIndex]"
+        @next-question="showNextQuestion"
+      />
+      
+      <MultipleQuestion
+        v-else-if="quiz[currentQuestionIndex].type === 'multiple'"
+        :question="quiz[currentQuestionIndex]"
+        @next-question="showNextQuestion"
+      />
     </main>
   </div>
 </template>
