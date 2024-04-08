@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "npx eslint . --fix"
   },
   "dependencies": {
     "vue": "^3.4.21"
@@ -14,6 +15,8 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
     "vite": "^5.1.6",
-    "vite-plugin-vue-devtools": "^7.0.18"
+    "vite-plugin-vue-devtools": "^7.0.18",
+    "@rushstack/eslint-patch": "^1.10.1",
+    "@vue/eslint-config-airbnb": "^8.0.0"
   }
 }
